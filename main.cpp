@@ -1,44 +1,93 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-int main()
-{
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-    // Load a sprite to display
-    sf::Texture texture;
-    if (!texture.loadFromFile("cute_image.jpg"))
-        return EXIT_FAILURE;
-    sf::Sprite sprite(texture);
-    // Create a graphical text to display
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
-        return EXIT_FAILURE;
-    sf::Text text("Hello SFML", font, 50);
-    // Load a music to play
-    sf::Music music;
-    if (!music.openFromFile("nice_music.ogg"))
-        return EXIT_FAILURE;
-    // Play the music
-    music.play();
-    // Start the game loop
-    while (window.isOpen())
-    {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // Close window: exit
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        // Clear screen
-        window.clear();
-        // Draw the sprite
-        window.draw(sprite);
-        // Draw the string
-        window.draw(text);
-        // Update the window
-        window.display();
+//Codigo base
+//Funcion:
+//Parametro : tamano de la matriz , largo por ancho
+
+
+//Else: de manera aleatoria llenar la posiscion con un color aleatorio entre el gris y el negro
+#include <iostream>
+#include <algorithm>
+
+
+using namespace std;
+
+void PatronGrupo6( int pAncho, int pAltura){
+	
+	//Crear una matriz con los parametros asignados que por defecto toda la matriz sea de color blanco(metodo fill)
+	const size_t anchoM = pAncho;
+	const size_t alturaM = pAltura;
+	int matrizPatron[anchoM][alturaM];
+	//El metodo fill se utiliza en el codigo para llenar la matriz entera con el valor deseado
+	std:: fill(*matrizPatron, *matrizPatron + anchoM * alturaM, 255);
+    int y= 0; 
+	for (int x = 0;y < pAltura;){
+		if (x < anchoM){
+			int num = 1 + rand() % (100);
+			int colorAleatorio = 1 + rand() % 30 + 110;
+			if(y%2!=0){
+				if (num>=80){
+					matrizPatron[x][y] = colorAleatorio;
+				}
+			}else{
+				if (num<=95){
+					matrizPatron[x][y] = colorAleatorio;
+				}
+				else{
+					matrizPatron[x][y] = 0;
+				}	
+			}
+					
+			x++;
+		}
+		else{
+			x = 0;
+			y++;
+		}    
     }
-    return EXIT_SUCCESS;
+    
+    y=0; 
+	for (int x = 0;y < pAltura;){
+		int color = 5;
+		cout<<"x: "<<x<<" y: "<<y<<endl;
+		if (x < anchoM){
+			if(matrizPatron[x][y]<30){
+				try {
+					matrizPatron[x+1][y] = matrizPatron[x][y]+color;
+					matrizPatron[x-1][y] = matrizPatron[x][y]+color;
+					matrizPatron[x][y+1] = matrizPatron[x][y]+color;
+					matrizPatron[x][y-1] = matrizPatron[x][y]+color;
+					throw 1;
+				}
+				catch (int e) {
+					x++;
+				}
+				color += 5;
+				x++;	
+			}
+			x++;
+		}	
+			
+		else{
+			x = 0;
+			y++;
+		}    
+    }
+	for(int j = 0; j < pAltura;j++){
+		for (int i = 0; i < pAncho;i++){
+			cout<<matrizPatron[i][j]<<" ";
+		}
+		cout<<"\n";
+	}
+}
+
+
+
+int main(){
+	
+	int X = 15;
+	int Y = 15;
+	
+	PatronGrupo6(X,Y);
+
+
+    return 0;
 }
