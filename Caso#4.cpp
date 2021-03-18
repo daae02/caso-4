@@ -16,43 +16,45 @@ void PatronGrupo6( int pAncho, int pAltura){
 	const size_t anchoM = pAncho;
 	const size_t alturaM = pAltura;
 	int matrizPatron[anchoM][alturaM];
-	
 	//El metodo fill se utiliza en el codigo para llenar la matriz entera con el valor deseado
 	std:: fill(*matrizPatron, *matrizPatron + anchoM * alturaM, 255);
-	
-	for(int y=0; y < alturaM; y++){
-		if (y%2==0){
-			for(int x=0; x < anchoM; x++){
-				//Generar una opcion aleatoria
-				int num = 1 + rand() % (101-1);
-				if (num<=70){
-					matrizPatron[x][y] = 160;
-				}else{
-					int colorAleatorio =  1 + rand() % (159-0);
-					if((y>0)&&(y<50)){
-						matrizPatron[x][y] = colorAleatorio;
-						matrizPatron[x][y-1] = colorAleatorio;
-						matrizPatron[x][y+1] = colorAleatorio;	
-					}		
-				}		
-        	}
-		}else{
-			continue;
+    int y= 0; 
+	for (int x = 0;y < pAltura;){
+		if (x < anchoM){
+			cout<<"Va por: y: "<<y<<", x: "<<x<<endl;
+			int num = 1 + rand() % (101-1);
+			if (num<=90){
+				matrizPatron[x][y] = 160;
+			}else{
+				int colorAleatorio =  1 + rand() % (159-0);
+				if((y>0)&&(y<50)){
+					matrizPatron[x][y] = colorAleatorio;
+					matrizPatron[x][y-1] = colorAleatorio;
+					matrizPatron[x][y+1] = colorAleatorio;	
+				}					
+			}
+			x++;
 		}
-        
+		else{
+			x = 0;
+			y +=2;
+		}    
     }
-	cout<<"Prueba: "<<matrizPatron[32][13]<<endl;
-	cout<<"Prueba2: "<<matrizPatron[32][44]<<endl;
-	cout<<"Prueba3: "<<matrizPatron[32][27]<<endl;
-	cout<<"Prueba4: "<<matrizPatron[32][36]<<endl;
+	
+	for(int j = 0; j < pAltura;j++){
+		for (int i = 0; i < pAncho;i++){
+			cout<<matrizPatron[i][j]<<" ";
+		}
+		cout<<"\n";
+	}
 }
 
 
 
 int main(){
 	
-	int X = 50;
-	int Y = 70;
+	int X = 15;
+	int Y = 10;
 	
 	PatronGrupo6(X,Y);
 
